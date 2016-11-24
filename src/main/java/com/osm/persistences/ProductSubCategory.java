@@ -14,7 +14,7 @@ import com.osm.persistences.ProductCategory;
 
 @Entity
 @Table
-public class ProductSubCategory{
+public class ProductSubCategory{			//This is a product category
 	@Id
 	@GeneratedValue
 	private long id;
