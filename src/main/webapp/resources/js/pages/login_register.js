@@ -32,7 +32,7 @@ function resendEmail(){
 				switch(result){
 				case 'Yes':
 					$.ajax({
-						url:'resendEmail',
+						url:'login/resendEmail',
 						data:{
 							'username' : user,
 							'password' : pass,
@@ -108,7 +108,7 @@ function tryLogin(user, pass){
 		$.ajax({
 			type:"post",
 			data: {username : user, password: pass},
-			url: "dologin",
+			url: "login/dologin",
 			success: function(data){
 				switch(data){
 				case '0':			//'0' - User is valid totally...
@@ -223,7 +223,7 @@ $(document).ready(function(){
 			formdata.append("secans",$("#form_register #secans").val());
 			console.log("/setUser mapping call by ajax...");
 			$.ajax({
-				url:'saveUser',
+				url:'login/saveUser',
 				data: formdata,
 				cache: false,
 				contentType: false,

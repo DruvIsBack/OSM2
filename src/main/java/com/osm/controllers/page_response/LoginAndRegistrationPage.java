@@ -1,4 +1,4 @@
-package com.osm.controllers.index;
+package com.osm.controllers.page_response;
 
 import java.util.regex.Pattern;
 
@@ -30,11 +30,11 @@ import com.osm.services.GmailServerService;
 import com.osm.services.UserService;
 
 @RestController
-//@RequestMapping(value="/login")
-public class LoginAndRegistration{
+@RequestMapping(value="login")
+public class LoginAndRegistrationPage{
 	
 	@SuppressWarnings("unused")
-	private Logger logger=Logger.getLogger(LoginAndRegistration.class);
+	private Logger logger=Logger.getLogger(LoginAndRegistrationPage.class);
 	
 	@Autowired
 	private UserService userservice;
@@ -51,7 +51,7 @@ public class LoginAndRegistration{
 	@Autowired
 	private Common common;
 	
-	@RequestMapping(value="/clearSession",method=RequestMethod.POST)
+	@RequestMapping(value="clearSession",method=RequestMethod.POST)
 	public String clearSession(HttpServletRequest request){
 		request.getSession().setAttribute("user", null);
 		return "1";
@@ -61,7 +61,7 @@ public class LoginAndRegistration{
 	//'-1' - Username or password validation error...
 	//'-2' - User already verified....
 	//'-3' - Email can't send...
-	@RequestMapping(value="/resendEmail",method=RequestMethod.POST)
+	@RequestMapping(value="resendEmail",method=RequestMethod.POST)
 	public @ResponseBody String resendEmail(@RequestParam String username,@RequestParam String password, HttpServletRequest request){
 		if(Pattern.matches("[_a-z0-9.-]{6,20}", username) && Pattern.matches("[_a-z0-9.-]{6,20}", password)){
 			User user = userservice.getUserByUsernameAndPassword(username, password);
@@ -85,7 +85,7 @@ public class LoginAndRegistration{
 	//'-2' - User not exist...
 	//'-3' - Username or password validation error...
 	//'-4' - Server error...
-	 @RequestMapping(value="/dologin",method=RequestMethod.POST)
+	 @RequestMapping(value="dologin",method=RequestMethod.POST)
 	 public @ResponseBody String doLogin(Model model,@RequestParam String username, @RequestParam String password, HttpServletRequest request)
 	 {
 		 System.out.println("GetUser() method called...");
@@ -131,7 +131,7 @@ public class LoginAndRegistration{
 	 // '-4' - User saved and confirmation code generated, but email can't send yet...
 	 // '-5' - Can't set/fetch/send email verification Code...
 	 // '-6' - Same email already exist...
-	 @RequestMapping(value="/saveUser",method=RequestMethod.POST)
+	 @RequestMapping(value="saveUser",method=RequestMethod.POST)
 	 public String SaveUser(@RequestParam("photo_data") MultipartFile photodata, @ModelAttribute User user,HttpServletRequest request) throws AddressException, MessagingException
 	 {
 		 System.out.println("SaveUser() procedure started...");
@@ -183,27 +183,6 @@ public class LoginAndRegistration{
 		 System.out.println("SaveUser() procedure close...");
 		return "0";		//Successfully save user and sent email verification to user mail...
 	}
-	 
-	 @RequestMapping(value="/emailverify",method=RequestMethod.GET)
-	 public ModelAndView emailverify(@RequestParam("verifycode") String code,@RequestParam String username){
-		 ModelAndView model = new ModelAndView("email_verify");
-		 User user = userservice.getUserByUsername(username);
-		 EmailVerification ev = evService.getEV(user);
-		 if (ev != null && ev.getCode().equals(code)){
-			 System.out.println("Code Matched...");
-			 model.addObject("match", false);
-			 if(userservice.setVerifyToUser(user)){
-				 if(evService.deleteEV(ev)){ 
-					 model.addObject("match", true);
-				 }
-			 }else{
-				 System.out.println("Error occured when trying userservice.setVerifyToUser(user)");
-			 }
-		 }else{
-			 System.out.println("Code not matched...");
-		 }
-		 return model;
-	 }
 	 
 	 private String getUserConfirmationEmailText(HttpServletRequest request,User user){
 		 System.out.println("getUserConfirmationEmailText() entering...");
