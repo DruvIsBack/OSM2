@@ -267,7 +267,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>${spring.data.jpa.version}</version>
+			<version>1.11.0.M1</version>
 		</dependency>
 
 		<!-- Thymeleaf -->

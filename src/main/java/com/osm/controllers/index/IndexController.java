@@ -1,10 +1,17 @@
 package com.osm.controllers.index;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +23,7 @@ import com.osm.persistences.EmailVerification;
 import com.osm.persistences.User;
 import com.osm.services.EmailVerificationService;
 import com.osm.services.UserService;
+
 
 @Controller
 public class IndexController{
@@ -35,8 +43,30 @@ public class IndexController{
 	 @RequestMapping(value="/",method=RequestMethod.GET)
 	 public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws AddressException, MessagingException
 	 {
-		
-		 ModelAndView  model = new ModelAndView("home");
+/*//Try to create file
+		 	ObjectMapper mapper = new ObjectMapper();
+		 	try {
+		 		TestAnimal cat = new TestAnimal(1,"cat"); 
+		 		ServletContext ctx = request.getServletContext();
+		 		String path = ctx.getRealPath("/animal.json");
+		 		//FileWriter fw = new FileWriter(path);
+				// Convert object to JSON string and save into a file directly
+				mapper.writeValue(new File(path), cat);
+				String jsonInString = mapper.writeValueAsString(cat);
+				System.out.println(jsonInString);
+				jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(cat);
+				System.out.println(jsonInString);
+				
+
+			} catch (JsonGenerationException e) {
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+//Try to create file
+*/		 ModelAndView  model = new ModelAndView("home");
 		 User user = null;
 		 user = common.getSaveUser(request);
 		 

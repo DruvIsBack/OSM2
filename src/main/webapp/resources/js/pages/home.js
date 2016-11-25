@@ -12,7 +12,7 @@ $(document).ready(function(){
 		setCookie("password", "", 0);
 		$.ajax({
 			type: 'post',
-			url: 'clearSession',
+			url: 'login/clearSession',
 			success: function(data){
 				if(data == "1"){
 					setCookie("JSESSIONID", "", 0);

@@ -1,12 +1,10 @@
 package com.osm.controllers.page_response;
 
 import java.util.regex.Pattern;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.osm.controllers.iofunc.Common;
 import com.osm.controllers.iofunc.FileIO;
-import com.osm.persistences.EmailVerification;
 import com.osm.persistences.User;
 import com.osm.persistences.UserType;
 import com.osm.services.EmailVerificationService;
